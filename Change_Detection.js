@@ -38,7 +38,18 @@ function prepS2(start, end) {
     .clip(mumbai);
 }
 
-// 2. UI ELEMENTS
+// 2. UI PANELS
+var controlPanel = ui.Panel({
+  layout: ui.Panel.Layout.flow('vertical'),
+  style: {position: 'top-left', padding: '8px', width: '250px'}
+});
+
+var chartPanel = ui.Panel({
+  layout: ui.Panel.Layout.flow('vertical'),
+  style: {position: 'top-right', padding: '8px', width: '400px'}
+});
+
+// UI elements
 var year1 = ui.Select({
   items: ['2018', '2019', '2020'],
   placeholder: 'Start Year',
@@ -50,8 +61,16 @@ var year2 = ui.Select({
   value: '2023'
 });
 var runButton = ui.Button('Run Change Detection');
-var panel = ui.Panel([ui.Label('Mumbai NDVI Change Detection'), year1, year2, runButton]);
-Map.add(panel);
+
+// Add controls to left panel
+controlPanel.add(ui.Label('Mumbai NDVI Change Detection'));
+controlPanel.add(year1);
+controlPanel.add(year2);
+controlPanel.add(runButton);
+
+// Add panels to map
+Map.add(controlPanel);
+Map.add(chartPanel);
 
 // 3. MAIN ANALYSIS FUNCTION
 function runAnalysis() {
@@ -81,7 +100,7 @@ function runAnalysis() {
   Map.addLayer(gainMask, {palette: ['green']}, 'Vegetation Gain');
   Map.addLayer(stableMask, {palette: ['white']}, 'Stable');
 
-  // 4. HISTOGRAM
+  // 4. HISTOGRAM (goes to right panel only)
   var chart = ui.Chart.image.histogram({
     image: ndvi_diff,
     region: mumbai,
@@ -93,8 +112,10 @@ function runAnalysis() {
     vAxis: {title: 'Pixel Count'},
     series: [{color: 'green'}]
   });
-  Map.add(panel);
-  panel.add(chart);
+
+  chartPanel.clear();
+  chartPanel.add(ui.Label('NDVI Change Histogram'));
+  chartPanel.add(chart);
 
   // 5. EXPORT MASKS AS SHAPEFILES
   Export.table.toDrive({
