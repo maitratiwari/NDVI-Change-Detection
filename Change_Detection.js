@@ -66,11 +66,11 @@ var year2 = ui.Select({
   value: '2023'
 });
 
-// Season dropdown
-var season = ui.Select({
-  items: ['Oct-Nov', 'Feb-Mar'],
-  placeholder: 'Select Season',
-  value: 'Oct-Nov'
+// Month dropdown (single month only)
+var monthSelect = ui.Select({
+  items: ['October', 'March'],
+  placeholder: 'Select Month',
+  value: 'October'
 });
 
 var runButton = ui.Button('Run Change Detection');
@@ -79,19 +79,19 @@ var runButton = ui.Button('Run Change Detection');
 controlPanel.add(ui.Label('Mumbai NDVI Change Detection'));
 controlPanel.add(year1);
 controlPanel.add(year2);
-controlPanel.add(season);
+controlPanel.add(monthSelect);
 controlPanel.add(runButton);
 
 // Add panels to map
 Map.add(controlPanel);
 Map.add(chartPanel);
 
-// Helper function for season dates
-function getSeasonDates(year, seasonChoice) {
-  if (seasonChoice === 'Oct-Nov') {
-    return [year + '-10-01', year + '-11-30'];
-  } else if (seasonChoice === 'Feb-Mar') {
-    return [year + '-02-01', year + '-03-31'];
+// Helper function for month dates
+function getMonthDates(year, monthChoice) {
+  if (monthChoice === 'October') {
+    return [year + '-10-01', year + '-10-31'];
+  } else if (monthChoice === 'March') {
+    return [year + '-03-01', year + '-03-31'];
   }
 }
 
@@ -100,9 +100,9 @@ function runAnalysis() {
   Map.layers().reset();
   Map.centerObject(mumbai, 9);
 
-  var seasonChoice = season.getValue();
-  var dates1 = getSeasonDates(year1.getValue(), seasonChoice);
-  var dates2 = getSeasonDates(year2.getValue(), seasonChoice);
+  var monthChoice = monthSelect.getValue();
+  var dates1 = getMonthDates(year1.getValue(), monthChoice);
+  var dates2 = getMonthDates(year2.getValue(), monthChoice);
 
   var img_t1 = prepS2(dates1[0], dates1[1]);
   var img_t2 = prepS2(dates2[0], dates2[1]);
