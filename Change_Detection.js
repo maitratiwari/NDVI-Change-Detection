@@ -38,20 +38,24 @@ function prepS2(start, end) {
     .clip(mumbai);
 }
 
-// 2. UI ELEMENTS
-var year1 = ui.Select({
-  items: ['2018', '2019', '2020'],
-  placeholder: 'Start Year',
-  value: '2019'
+// 2. UI PANELS
+var controlPanel = ui.Panel({
+  widgets: [
+    ui.Label('Mumbai NDVI Change Detection'),
+    ui.Select({items: ['2018','2019','2020'], placeholder: 'Start Year', value: '2019', onChange: function(){}}),
+    ui.Select({items: ['2022','2023','2024'], placeholder: 'End Year', value: '2023', onChange: function(){}}),
+  ],
+  style: {position: 'top-left'}
 });
-var year2 = ui.Select({
-  items: ['2022', '2023', '2024'],
-  placeholder: 'End Year',
-  value: '2023'
-});
+
+var year1 = controlPanel.widgets().get(1);
+var year2 = controlPanel.widgets().get(2);
 var runButton = ui.Button('Run Change Detection');
-var panel = ui.Panel([ui.Label('Mumbai NDVI Change Detection'), year1, year2, runButton]);
-Map.add(panel);
+controlPanel.add(runButton);
+
+var chartPanel = ui.Panel({style: {position: 'top-right'}});
+Map.add(controlPanel);
+Map.add(chartPanel);
 
 // 3. MAIN ANALYSIS FUNCTION
 function runAnalysis() {
@@ -81,7 +85,7 @@ function runAnalysis() {
   Map.addLayer(gainMask, {palette: ['green']}, 'Vegetation Gain');
   Map.addLayer(stableMask, {palette: ['white']}, 'Stable');
 
-  // 4. HISTOGRAM
+  // 4. HISTOGRAM (goes to chartPanel only)
   var chart = ui.Chart.image.histogram({
     image: ndvi_diff,
     region: mumbai,
@@ -93,8 +97,9 @@ function runAnalysis() {
     vAxis: {title: 'Pixel Count'},
     series: [{color: 'green'}]
   });
-  Map.add(panel);
-  panel.add(chart);
+
+  chartPanel.clear();
+  chartPanel.add(chart);
 
   // 5. EXPORT MASKS AS SHAPEFILES
   Export.table.toDrive({
