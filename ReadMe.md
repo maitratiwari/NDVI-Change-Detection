@@ -1,5 +1,5 @@
 ## 🔗 Live App
-Explore it here: [Mumbai NDVI Change Detection](https://remote-sensing-483612.projects.earthengine.app/change-detection-ndvi)
+Explore it here: [Mumbai NDVI Change Detection](https://maitratiwari.users.earthengine.app/view/change-detection-ndvi)
 
 ---
 
