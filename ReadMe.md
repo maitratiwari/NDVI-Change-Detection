@@ -6,7 +6,7 @@ Explore it here: [Mumbai NDVI Change Detection](https://maitratiwari.users.earth
 # NDVI Change Detection 🌱
 
 This project uses Google Earth Engine to track vegetation change in Mumbai over time.  
-By comparing Sentinel‑2 satellite images from different years, it highlights areas of vegetation **loss**, **gain**, and **stable**. The app also provides histograms to visualize NDVI differences, shapefile exports for GIS work, and machine learning methods like **KNN classification** for deeper analysis.
+By comparing Sentinel‑2 satellite images from different years, it highlights areas of vegetation **loss**, **gain**, and **stability**. The app also provides histograms to visualize NDVI differences, shapefile exports for GIS work, and machine learning methods like **KNN classification** for deeper analysis.
 
 ---
 
