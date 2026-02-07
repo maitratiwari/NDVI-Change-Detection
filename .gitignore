@@ -1,0 +1,60 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE/project settings
+.vscode/
+.idea/
+
+# Build / distribution
+build/
+dist/
+*.egg-info/
+
+# Temporary files
+*.tmp
+*.swp
+
+# Geospatial / Remote Sensing outputs
+*.tif
+*.tiff
+*.img
+*.jp2
+*.hdf
+*.nc
+*.grd
+*.shp
+*.shx
+*.dbf
+*.prj
+*.xml
+*.geojson
+*.kml
+*.kmz
+
+# Large Earth Engine exports
+*.csv
+*.zip
+*.tar
+*.gz
+
+# Personal configs
+*.json
+*.config
